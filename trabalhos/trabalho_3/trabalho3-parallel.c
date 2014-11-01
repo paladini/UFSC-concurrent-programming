@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 	
 	int i, k, j;
 	int intervalo = maximo-minimo;
-	double *myArray = (double*) malloc (intervalo * sizeof(double));
+	double *myArray = (double*) malloc ((intervalo + 1) * sizeof(double));
 	omp_set_num_threads(threads);
 	#pragma omp parallel
 	{
@@ -49,4 +49,6 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
+	free(myArray);
+	return 0;
 }

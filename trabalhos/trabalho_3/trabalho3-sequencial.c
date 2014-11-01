@@ -3,7 +3,7 @@
 
 int isDivisor(int numero, int divisorPotencial) {
 	if(numero % divisorPotencial == 0) {
-			return divisorPotencial;
+	    return divisorPotencial;
 	}
 	return 0;
 }
@@ -11,7 +11,7 @@ int isDivisor(int numero, int divisorPotencial) {
 int calculaSomaDosDivisores(int i) {
 	int j, soma = i;
 	for(j = (int) i / 2; j > 0; j--){
-			soma += isDivisor(i, j);
+    	soma += isDivisor(i, j);
 	}
 	return soma;
 }
@@ -34,9 +34,10 @@ int main(int argc, char **argv) {
 	for(k = 0; k <= intervalo; k++){
 		for (j = k+1; j <= intervalo; j++) {
 
-			if(myArray[k] == myArray[j]) {
-				// printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + k), (minimo + j));
-			}
+	    	if(myArray[k] == myArray[j]) {
+        	    //printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + k), (minimo + j));
+    		}
 		}
 	}
 }
+
