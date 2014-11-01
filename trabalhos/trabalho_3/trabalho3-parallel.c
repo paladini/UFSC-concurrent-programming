@@ -22,33 +22,33 @@ int main(int argc, char **argv) {
 	int maximo = atoi(argv[2]);
 	int threads = atoi(argv[3]);
 	
-	int i, k, j;
+	int i, j;
 	int intervalo = maximo-minimo;
-	double *myArray = (double*) malloc ((intervalo + 1) * sizeof(double));
+	double *fracoes = (double*) malloc ((intervalo + 1) * sizeof(double));
 	omp_set_num_threads(threads);
+
 	#pragma omp parallel
 	{
 		#pragma omp for schedule(dynamic, intervalo/threads)
 		for (i = 0; i <= intervalo; i++) {
-
 			int somaDosDivisores = calculaSomaDosDivisores(minimo + i);
 			double fracaoMutual = (double)somaDosDivisores / (minimo + i);
-			myArray[i] = fracaoMutual;
+			fracoes[i] = fracaoMutual;
 		}
 	}
 	
-	for(k = 0; k <= intervalo; k++){
+	for(i = 0; i <= intervalo; i++){
 		#pragma omp parallel
 		{
-			#pragma omp for schedule(dynamic, intervalo/threads)// mais lento, porém é preciso que todas as threads
-			// tenham o mesmo número de operações.
-			for (j = k+1; j <= intervalo; j++) {
-				if(myArray[k] == myArray[j]) {
-					printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + k), (minimo + j));
+			#pragma omp for schedule(dynamic, intervalo/threads)
+			for (j = i+1; j <= intervalo; j++) {
+				if(fracoes[i] == fracoes[j]) {
+					printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
 				}
 			}
 		}
 	}
-	free(myArray);
+	
+	free(fracoes);
 	return 0;
 }
