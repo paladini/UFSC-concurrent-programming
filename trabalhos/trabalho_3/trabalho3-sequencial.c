@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
 	int i, j, somaDosDivisores, intervalo = maximo-minimo;
 	double fracaoMutual;
-	double *fracoes = (double*) malloc (intervalo * sizeof(double));
+	double *fracoes = (double*) malloc ((intervalo + 1) * sizeof(double));
 
 	for (i = minimo; i <= maximo; i++) {
 		double fracaoMutual = (double)calculaSomaDosDivisores(i) / i;
