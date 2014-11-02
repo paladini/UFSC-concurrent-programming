@@ -13,6 +13,7 @@ int calculaSomaDosDivisores(int i) {
 }
 
 int main(int argc, char **argv) {
+	
 	int minimo = atoi(argv[1]);
 	int maximo = atoi(argv[2]);
 	int threads = atoi(argv[3]);
