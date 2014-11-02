@@ -2,17 +2,12 @@
 #include <stdlib.h>
 #include <omp.h>
 
-int isDivisor(int numero, int divisorPotencial) {
-	if(numero % divisorPotencial == 0) {
-			return divisorPotencial;
-	}
-	return 0;
-}
-
 int calculaSomaDosDivisores(int i) {
 	int j, soma = i;
 	for(j = (int) i / 2; j > 0; j--){
-			soma += isDivisor(i, j);
+		if(i % j == 0) {
+			soma += j;
+		}
 	}
 	return soma;
 }
@@ -29,18 +24,17 @@ int main(int argc, char **argv) {
 
 	#pragma omp parallel
 	{
-		#pragma omp for schedule(dynamic, intervalo/threads)
-		for (i = 0; i <= intervalo; i++) {
-			int somaDosDivisores = calculaSomaDosDivisores(minimo + i);
-			double fracaoMutual = (double)somaDosDivisores / (minimo + i);
-			fracoes[i] = fracaoMutual;
+		#pragma omp for schedule(static)
+		for (i = minimo; i <= maximo; i++) {
+			double fracaoMutual = (double)calculaSomaDosDivisores(i) / i;
+			fracoes[i - minimo] = fracaoMutual;
 		}
 	}
 	
 	for(i = 0; i <= intervalo; i++){
 		#pragma omp parallel
 		{
-			#pragma omp for schedule(dynamic, intervalo/threads)
+			#pragma omp for schedule(static)
 			for (j = i+1; j <= intervalo; j++) {
 				if(fracoes[i] == fracoes[j]) {
 					printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
