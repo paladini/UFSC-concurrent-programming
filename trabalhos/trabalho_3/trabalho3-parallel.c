@@ -55,7 +55,6 @@ int main(int argc, char **argv) {
 	int threads = atoi(argv[3]);
 	
 	int i, j, intervalo = maximo-minimo;
-	double fracaoMutual;
 	double *fracoes = (double*) malloc ((intervalo + 1) * sizeof(double));
 	
 	if (fracoes != NULL) {
@@ -65,7 +64,7 @@ int main(int argc, char **argv) {
 		{
 			#pragma omp for schedule(static)
 			for (i = minimo; i <= maximo; i++) {
-				fracaoMutual = (double)calculaSomaDosDivisores(i) / i;
+				double fracaoMutual = (double)calculaSomaDosDivisores(i) / i;
 				fracoes[i - minimo] = fracaoMutual;
 			}
 		}
