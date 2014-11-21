@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
 		for(i = 0; i <= intervalo; i++){
 			for (j = i+1; j <= intervalo; j++) {
 		    	if(fracoes[i] == fracoes[j]) {
-	        	    printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
+	        	    //printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
 	    		}
 			}
 		}
