@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 
 		#pragma omp parallel
 		{
-			#pragma omp for schedule(static)
+			#pragma omp for schedule(dynamic, intervalo/threads)
 			for (i = minimo; i <= maximo; i++) {
 				double fracaoMutual = (double)calculaSomaDosDivisores(i) / i;
 				fracoes[i - minimo] = fracaoMutual;
@@ -72,10 +72,10 @@ int main(int argc, char **argv) {
 		for(i = 0; i <= intervalo; i++){
 			#pragma omp parallel
 			{
-				#pragma omp for schedule(static)
+				#pragma omp for schedule(guided, intervalo)
 				for (j = i+1; j <= intervalo; j++) {
 					if(fracoes[i] == fracoes[j]) {
-						printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
+						//printf("Os numeros %d e %d são mutuamente amigos.\n", (minimo + i), (minimo + j));
 					}
 				}
 			}
